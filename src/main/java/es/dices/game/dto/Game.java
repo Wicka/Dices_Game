@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -28,8 +30,18 @@ public class Game {
 	@Column(name="date")
 	private Date date;
 	
-	@Column(name="winner")
-	private int winner;
+	
+	@ManyToOne
+	@JoinColumn(name="player1")	
+	private Player player1;
+	
+	@ManyToOne
+	@JoinColumn(name="player2")	
+	private Player player2;
+	
+	@ManyToOne
+	@JoinColumn(name="winner")	
+	private Player winner;
 	
 	/**
 	 * @param id   		-- tbl games 	(idgame)
@@ -48,11 +60,13 @@ public class Game {
 		
 	}
 
-	public Game(int id, Date date, int winner) {
+	public Game(int id, Date date, Player winner, Player player1, Player player2) {
 		super();
 		this.id = id;
 		this.date = date;
 		this.winner = winner;
+		this.player1=player1;
+		this.player2=player2;
 	}
 	
 	// ----------------------------------------------------------------------------------------------------------------
@@ -68,8 +82,16 @@ public class Game {
 		return date;
 	}
 
-	public int getWinner() {
+	public Player getWinner() {
 		return winner;
+	}
+	
+	public Player getPlayer1() {
+		return player1;
+	}
+
+	public Player getPlayer2() {
+		return player2;
 	}
 	
 
@@ -77,6 +99,8 @@ public class Game {
 	// --------------------------------     SETTERS     ---------------------------------------------------------------
 	// ----------------------------------------------------------------------------------------------------------------
 
+
+	
 
 	public void setId(int id) {
 		this.id = id;
@@ -86,16 +110,29 @@ public class Game {
 		this.date = date;
 	}
 
-	public void setWinner(int winner) {
+	public void setWinner(Player winner) {
 		this.winner = winner;
 	}
 	
+	public void setPlayer1(Player player1) {
+		this.player1 = player1;
+	}
+
+	public void setPlayer2(Player player2) {
+		this.player2 = player2;
+	}
+
 	
 	// ------------------------------------------ TO STRING ----------------------------------------------------------
-		
+	
 	@Override
 	public String toString() {
-		return "Game [id=" + id + ", date=" + date + ", winner=" + winner + "]";
+		return "Game [id=" + id + ", date=" + date + ", player1=" + player1 + ", player2=" + player2 + ", winner="
+				+ winner + "]";
 	}
+
+	
+		
+
 	
 }

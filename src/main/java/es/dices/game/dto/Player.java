@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity 
-@Table (name= "players")
+@Table (name= "users")
 
 public class Player {
 	
@@ -104,7 +104,7 @@ public class Player {
 
 	@Override
 	public String toString() {
-		return "Player [id=" + id + ", name=" + name + ", date=" + date + ", ranking=" + ranking + "]";
+		return "Players [id=" + id + ", name=" + name + ", date=" + date + ", ranking=" + ranking + "]";
 	}
 	
 	

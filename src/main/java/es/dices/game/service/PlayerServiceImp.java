@@ -2,6 +2,7 @@ package es.dices.game.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.dices.game.dao.IPlayerDAO;
@@ -9,7 +10,7 @@ import es.dices.game.dto.Player;
 
 @Service
 public class PlayerServiceImp implements IPlayerService {
-	
+	@Autowired
 	IPlayerDAO iPlayerDao;
 
 	@Override
@@ -21,25 +22,22 @@ public class PlayerServiceImp implements IPlayerService {
 	@Override
 	public Player savePlayer(Player player) {
 		
-		return null;
+		return iPlayerDao.save(player);
 	}
 
 	@Override
 	public Player playerXID(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return iPlayerDao.findById(id).get();
 	}
 
 	@Override
 	public Player updatePlayer(Player player) {
-		// TODO Auto-generated method stub
-		return null;
+		return iPlayerDao.save(player);
 	}
 
 	@Override
 	public void deletePlayer(int id) {
-		// TODO Auto-generated method stub
-
+		iPlayerDao.deleteById(id);
 	}
 
 }

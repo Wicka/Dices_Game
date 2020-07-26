@@ -35,6 +35,9 @@ public class Player {
 	@Column(name="date")
 	private Date date;
 	
+	@Column(name="points")
+	private int points;
+	
 	@Column(name="ranking")
 	private int ranking;
 	
@@ -42,7 +45,7 @@ public class Player {
 	@JsonIgnore
 	@OneToMany
 	@JoinColumn(name="idplayer")
-	private List<DiceRoll> diceroll;
+	private List<Game> games;
 	
 	
 
@@ -64,7 +67,7 @@ public class Player {
 		
 	}
 
-	public Player(int id, String name, Date date, int ranking) {
+	public Player(int id, String name, Date date, int points,int ranking) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -75,6 +78,8 @@ public class Player {
 	// ----------------------------------------------------------------------------------------------------------------
 	// --------------------------------     GETTERS     ---------------------------------------------------------------
 	// ----------------------------------------------------------------------------------------------------------------
+
+	
 
 	public int getId() {
 		return id;
@@ -93,11 +98,15 @@ public class Player {
 	}
 	
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "idplayer")
-	public List<DiceRoll> getDiceroll() {
-		return diceroll;
+		
+	public int getPoints() {
+		return points;
 	}
-	
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "idplayer")
+	public List<Game> getGames() {
+		return games;
+	}
 	
 	// ----------------------------------------------------------------------------------------------------------------
 	// --------------------------------     SETTERS     ---------------------------------------------------------------
@@ -119,12 +128,22 @@ public class Player {
 	public void setRanking(int ranking) {
 		this.ranking = ranking;
 	}
+	
+	
+	public void setPoints(int points) {
+		this.points = points;
+	}
 
+	public void setGames(List<Game> games) {
+		this.games = games;
+	}
 	// ------------------------------------------ TO STRING ----------------------------------------------------------
+
+	
 
 	@Override
 	public String toString() {
-		return "Players [id=" + id + ", name=" + name + ", date=" + date + ", ranking=" + ranking + "]";
+		return "Players [Player=" + id + ", name=" + name + ", date=" + date + ", ranking=" + ranking + "]";
 	}
 	
 	

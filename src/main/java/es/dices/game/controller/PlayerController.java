@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import es.dices.game.dto.Dice;
 import es.dices.game.dto.DiceRoll;
+import es.dices.game.dto.Game;
 import es.dices.game.dto.Player;
 import es.dices.game.menu.MenuOptions;
 import es.dices.game.service.PlayerServiceImp;
@@ -38,29 +39,43 @@ public class PlayerController {
 	//----------------------------------------------  GET METHODS (VIEWS)
 	//---------------------------------------------------------------------
 	
-	@GetMapping("/players/menu")
-	public String menuPlayer()
-	{					
-		return MenuOptions.players();
+	
+	
+	//GET /players/ranking: retorna el ranking mig de tots els jugadors del sistema. És a dir, el percentatge mig d’èxits. 
+
+	//GET /players/ranking/loser: retorna el jugador amb pitjor percentatge d’èxit.
+
+	//GET /players/ranking/winner: retorna el jugador amb pitjor percentatge d’èxit.
+
+	
+	//GET /players/: retorna el llistat de tots els jugadors del sistema amb el seu percentatge mig d’èxits
+	
+	
+	
+	//GET /players/{id}/games: retorna el llistat de jugades per un jugador.
+	@GetMapping("/players/{id}/games")	
+	public List<Game> playerXID_Games (@PathVariable(name="id")Integer id) {
+				
+		return playerServiceImp.playerXID_Games(id);		
 	}
 	
+	
+	
+	
 	@GetMapping("/players")
-	public List<Player> showPlayers(){
-		
+	public List<Player> showPlayers(){		
 		return playerServiceImp.showPlayers();		
 	}
 	
+	
+		
 	@GetMapping("/players/{id}")	
 	public Player playerXID (@PathVariable(name="id")Integer id) {
 		
 		return playerServiceImp.playerXID(id);		
 	}
 
-	@GetMapping("/players/{id}/games")	
-	public List<DiceRoll> playerXID_ (@PathVariable(name="id")Integer id) {
-		
-		return playerServiceImp.playerXID(id).getDiceroll();		
-	}
+	
 
 	@GetMapping("/players2/{id}/games")
 	public int rolldice(){

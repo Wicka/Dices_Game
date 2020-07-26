@@ -1,10 +1,17 @@
 package es.dices.game.dto;
 
+
+
+import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -12,30 +19,34 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+
 @Entity
+//@IdClass(DiceRollPk.class)
+
 @Table (name="diceroll")
+
+//public class DiceRoll {
+//public class DiceRoll implements Serializable{	
 public class DiceRoll {
-	
-	
 	// ---------------------------------------------------------------------------------------------------
 	// ---------------------------------- ATRIBUTES / FIELDS --------------------------------------------
 	// ---------------------------------------------------------------------------------------------------
 
+	//@EmbeddedId
+	//private DiceRollPK idpkroll;
+	
+	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //autoincrementa
 	@Column(name="idroll")
 	private int idroll;
 	
-		
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name="idgame")	
-	private Game game;
+	@OneToMany
+	@JoinColumn(name = "id")
+	private List<Game> games;
 	
-	//@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name="idplayer")
-	private  Player player;
+	
 	
 	@Column(name="dice1")
 	private int dice1;
@@ -43,7 +54,7 @@ public class DiceRoll {
 	@Column(name="dice2")
 	private int dice2;
 	
-	@Column(name="result")
+	@Column(name="result") 
 	private int result;
 
 	
@@ -67,11 +78,9 @@ public class DiceRoll {
 		
 	}
 	
-	public DiceRoll(int idroll, int toss, Game game, Player player, int dice1, int dice2, int result) {
+	public DiceRoll(int idroll, int toss, int dice1, int dice2, int result) {
 		super();
 		this.idroll = idroll;
-		this.game = game;
-		this.player = player;
 		this.dice1 = dice1;
 		this.dice2 = dice2;
 		this.result = result;
@@ -89,13 +98,7 @@ public class DiceRoll {
 
 	
 
-	public Game getGame() {
-		return game;
-	}
 
-	public Player getPlayer() {
-		return player;
-	}
 
 	public int getDice1() {
 		return dice1;
@@ -121,13 +124,7 @@ public class DiceRoll {
 
 	
 
-	public void setGame(Game game) {
-		this.game = game;
-	}
-
-	public void setPlayer(Player player) {
-		this.player = player;
-	}
+	
 
 	public void setDice1(int dice1) {
 		this.dice1 = dice1;
@@ -141,15 +138,16 @@ public class DiceRoll {
 		this.result = result;
 	}
 
+	@Override
+	public String toString() {
+		return "DiceRoll [Diceroll=" + idroll + ", dice1=" + dice1 + ", dice2=" + dice2 + ", result=" + result + "]";
+	}
+
 	
 	// ------------------------------------------ TO STRING ----------------------------------------------------------
 	
 
-	@Override
-	public String toString() {
-		return "DiceRoll [idroll=" + idroll + ",  game=" + game + ", player=" + player + ", dice1=" + dice1
-				+ ", dice2=" + dice2 + ", result=" + result + "]";
-	}
+
 		
 	
 }

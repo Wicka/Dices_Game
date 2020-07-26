@@ -40,7 +40,7 @@ public class DiceRoll {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //autoincrementa
 	@Column(name="idroll")
-	private int idroll;
+	private int idRoll;
 	
 	@OneToMany
 	@JoinColumn(name = "id")
@@ -57,6 +57,7 @@ public class DiceRoll {
 	@Column(name="result") 
 	private int result;
 
+	
 	
 	
 	/**
@@ -78,12 +79,13 @@ public class DiceRoll {
 		
 	}
 	
-	public DiceRoll(int idroll, int toss, int dice1, int dice2, int result) {
+	public DiceRoll(int idRoll, int toss, int dice1, int dice2, int result) {
 		super();
-		this.idroll = idroll;
+		this.idRoll = idRoll;
 		this.dice1 = dice1;
 		this.dice2 = dice2;
 		this.result = result;
+	
 	}
 
 	
@@ -92,14 +94,12 @@ public class DiceRoll {
 	// --------------------------------     GETTERS     ---------------------------------------------------------------
 	// ----------------------------------------------------------------------------------------------------------------
 
+	
 	public int getIdRoll() {
-		return idroll;
+		return idRoll;
 	}
 
 	
-
-
-
 	public int getDice1() {
 		return dice1;
 	}
@@ -112,14 +112,19 @@ public class DiceRoll {
 		return result;
 	}
 
+	public List<Game> getGames() {
+		return games;
+	}
+
+	
 	
 	// ----------------------------------------------------------------------------------------------------------------
 	// --------------------------------     SETTERS     ---------------------------------------------------------------
 	// ----------------------------------------------------------------------------------------------------------------
 
 
-	public void setIdRoll(int idroll) {
-		this.idroll = idroll;
+	public void setIdRoll(int idRoll) {
+		this.idRoll = idRoll;
 	}
 
 	
@@ -138,14 +143,21 @@ public class DiceRoll {
 		this.result = result;
 	}
 
-	@Override
-	public String toString() {
-		return "DiceRoll [Diceroll=" + idroll + ", dice1=" + dice1 + ", dice2=" + dice2 + ", result=" + result + "]";
+	
+	public void setGames(List<Game> games) {
+		this.games = games;
 	}
 
 	
 	// ------------------------------------------ TO STRING ----------------------------------------------------------
 	
+
+
+	@Override
+	public String toString() {
+		return "DiceRoll [idRoll=" + idRoll + ", games=" + games + ", dice1=" + dice1 + ", dice2=" + dice2 + ", result="
+				+ result +  "]";
+	}
 
 
 		

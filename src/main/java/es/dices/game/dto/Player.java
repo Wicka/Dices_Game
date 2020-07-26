@@ -41,7 +41,10 @@ public class Player {
 	@Column(name="ranking")
 	private int ranking;
 	
-	
+	private Integer igames;
+	private Integer iwingames;
+	private Integer rate;
+
 	@JsonIgnore
 	@OneToMany
 	@JoinColumn(name="idplayer")
@@ -67,12 +70,15 @@ public class Player {
 		
 	}
 
-	public Player(int id, String name, Date date, int points,int ranking) {
+	public Player(int id, String name, Date date, int points,int ranking, int igames, int iwingames, int rate) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.date = date;
 		this.ranking = ranking;
+		this.igames=igames;
+		this.iwingames= iwingames;
+		this.rate=rate;
 	}
 
 	// ----------------------------------------------------------------------------------------------------------------
@@ -107,15 +113,31 @@ public class Player {
 	public List<Game> getGames() {
 		return games;
 	}
+	public int getIgames() {
+		return igames;
+	}
+	public int getIwingames() {
+		return iwingames;
+	}
+	public int getRate() {
+		return rate;
+	}
 	
 	// ----------------------------------------------------------------------------------------------------------------
 	// --------------------------------     SETTERS     ---------------------------------------------------------------
 	// ----------------------------------------------------------------------------------------------------------------
 
 	
+	
+
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
+	
+
+	
 
 	public void setName(String name) {
 		this.name = name;
@@ -137,15 +159,29 @@ public class Player {
 	public void setGames(List<Game> games) {
 		this.games = games;
 	}
-	// ------------------------------------------ TO STRING ----------------------------------------------------------
-
 	
+	public void setIgames(int igames) {
+		this.igames = igames;
+	}
+
+	public void setIwingames(int iwingames) {
+		this.iwingames = iwingames;
+	}
+	
+	public void setRate(int rate) {
+		this.rate = rate;
+	}
+	
+	// ------------------------------------------ TO STRING ----------------------------------------------------------
 
 	@Override
 	public String toString() {
-		return "Players [Player=" + id + ", name=" + name + ", date=" + date + ", ranking=" + ranking + "]";
+		return "Player [Player=" + id + ", name=" + name + ", date=" + date + ", points=" + points + ", ranking=" + ranking
+				+ ", igames=" + igames + ", iwingames=" + iwingames + ", games=" + games+ ", rate=" + rate + "]";
 	}
+
 	
+
 	
 	
 

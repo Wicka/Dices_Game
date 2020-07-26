@@ -48,7 +48,6 @@ public class PlayerController {
 	//GET /players/ranking/winner: retorna el jugador amb pitjor percentatge d’èxit.
 
 	
-	//GET /players/: retorna el llistat de tots els jugadors del sistema amb el seu percentatge mig d’èxits
 	
 	
 	
@@ -60,11 +59,10 @@ public class PlayerController {
 	}
 	
 	
-	
-	
+	//GET /players/: retorna el llistat de tots els jugadors del sistema amb el seu percentatge mig d’èxits
 	@GetMapping("/players")
-	public List<Player> showPlayers(){		
-		return playerServiceImp.showPlayers();		
+	public List<Player> showPlayers_Exits(){		
+		return playerServiceImp.showPlayers_Exits();		
 	}
 	
 	

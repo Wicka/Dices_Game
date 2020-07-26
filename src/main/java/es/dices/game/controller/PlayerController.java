@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.dices.game.dto.Dice;
+import es.dices.game.dto.DiceRoll;
 import es.dices.game.dto.Player;
 import es.dices.game.menu.MenuOptions;
 import es.dices.game.service.PlayerServiceImp;
@@ -22,6 +24,7 @@ public class PlayerController {
 	
 	@Autowired
 	PlayerServiceImp playerServiceImp;
+	Dice dice;
 
 	//--------------------------------------------------------------------------------------------------------------------------
 	//--------------------------------------------------------------------------------------------------------------------------
@@ -53,10 +56,26 @@ public class PlayerController {
 		return playerServiceImp.playerXID(id);		
 	}
 
+	@GetMapping("/players/{id}/games")	
+	public List<DiceRoll> playerXID_ (@PathVariable(name="id")Integer id) {
+		
+		return playerServiceImp.playerXID(id).getDiceroll();		
+	}
+
+	@GetMapping("/players2/{id}/games")
+	public int rolldice(){
+		return dice.getToss();
+	}
+	
+	
 	//----------------------------------------------------------------------
 	//--------------------------------------------  POST METHOD  (NEW USER PLAYER)
 	//----------------------------------------------------------------------
 
+	
+	//@PostMapping ("/players/{id}/games")
+	
+	
 	@PostMapping ("/players")
 	public Player savePlayer(@RequestBody Player player) {
 		

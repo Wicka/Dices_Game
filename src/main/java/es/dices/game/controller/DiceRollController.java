@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.dices.game.dto.Dice;
 import es.dices.game.dto.DiceRoll;
 import es.dices.game.menu.MenuOptions;
 import es.dices.game.service.DiceRollServiceImp;
@@ -50,11 +51,18 @@ public class DiceRollController {
 	public DiceRoll diceRollXID(@PathVariable(name="idroll")Integer id) {
 		return diceRollServiceImp.diceRollXID(id);
 	}
-		
+	
+			
 		//----------------------------------------------------------------------
 		//--------------------------------------------  POST METHOD  (NEW ROLL)
 		//----------------------------------------------------------------------
 
+	@GetMapping("/rolldice")
+	public int rollDice() {
+		Dice dice = new Dice();
+		return dice.getToss();
+	}
+	
 	@PostMapping("/rolls")
 	public DiceRoll saveDiceRoll(@RequestBody DiceRoll diceRoll) {
 		return diceRollServiceImp.saveDiceRoll(diceRoll);	

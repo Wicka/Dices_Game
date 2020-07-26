@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -44,9 +45,11 @@ public class Game {
 	private Player winner;
 	
 	/**
-	 * @param id   		-- tbl games 	(idgame)
-	 * @param date		-- tbl games 	(date)
-	 * @param winner	-- tbl games 	(winner)
+	 * @param id   		-- tbl games 			(idgame)
+	 * @param date		-- tbl games 			(date)
+	 * @param player1 	-- tbl players 	(idplayer)
+	 * @param player2 	-- tbl players 	(idplayer)
+	 * @param winner	-- tbl players	(idplayer)
 	 */
 	
 	
@@ -82,18 +85,19 @@ public class Game {
 		return date;
 	}
 
-	public Player getWinner() {
-		return winner;
-	}
+
 	
 	public Player getPlayer1() {
 		return player1;
 	}
-
+	
 	public Player getPlayer2() {
 		return player2;
 	}
-	
+	public Player getWinner() {
+		return winner;
+	}
+
 
 	// ----------------------------------------------------------------------------------------------------------------
 	// --------------------------------     SETTERS     ---------------------------------------------------------------
@@ -124,12 +128,7 @@ public class Game {
 
 	
 	// ------------------------------------------ TO STRING ----------------------------------------------------------
-	
-	@Override
-	public String toString() {
-		return "Game [id=" + id + ", date=" + date + ", player1=" + player1 + ", player2=" + player2 + ", winner="
-				+ winner + "]";
-	}
+
 
 	
 		

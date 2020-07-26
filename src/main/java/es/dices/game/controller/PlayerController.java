@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.dices.game.dto.Player;
-import es.dices.game.service.MenuOptions;
+import es.dices.game.menu.MenuOptions;
 import es.dices.game.service.PlayerServiceImp;
 
 @RestController

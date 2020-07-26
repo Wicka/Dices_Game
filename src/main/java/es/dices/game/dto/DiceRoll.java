@@ -5,7 +5,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table (name="diceroll")
@@ -19,16 +24,18 @@ public class DiceRoll {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //autoincrementa
 	@Column(name="idroll")
-	private int id;
+	private int idroll;
 	
-	@Column(name="idtoss")
-	private int toss;
+		
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name="idgame")	
+	private Game game;
 	
-	@Column(name="idgame")
-	private int game;
-	
-	@Column(name="idplayer")
-	private  int player;
+	//@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name="idplayer")
+	private  Player player;
 	
 	@Column(name="dice1")
 	private int dice1;
@@ -42,8 +49,7 @@ public class DiceRoll {
 	
 	
 	/**
-	 * @param id   			-- tbl diceroll 	(idpicture)
-	 * @param idtoss		-- tbl diceroll 	(idtoss)
+	 * @param id   			-- tbl diceroll 	(idroll)
 	 * @param idgame		-- tbl diceroll 	(idgame)
 	 * @param idplayer		-- tbl diceroll 	(idplayer)
 	 * @param dice1			-- tbl diceroll		(dice1)
@@ -61,10 +67,9 @@ public class DiceRoll {
 		
 	}
 	
-	public DiceRoll(int id, int toss, int game, int player, int dice1, int dice2, int result) {
+	public DiceRoll(int idroll, int toss, Game game, Player player, int dice1, int dice2, int result) {
 		super();
-		this.id = id;
-		this.toss = toss;
+		this.idroll = idroll;
 		this.game = game;
 		this.player = player;
 		this.dice1 = dice1;
@@ -78,19 +83,17 @@ public class DiceRoll {
 	// --------------------------------     GETTERS     ---------------------------------------------------------------
 	// ----------------------------------------------------------------------------------------------------------------
 
-	public int getId() {
-		return id;
+	public int getIdRoll() {
+		return idroll;
 	}
 
-	public int getToss() {
-		return toss;
-	}
+	
 
-	public int getGame() {
+	public Game getGame() {
 		return game;
 	}
 
-	public int getPlayer() {
+	public Player getPlayer() {
 		return player;
 	}
 
@@ -112,19 +115,17 @@ public class DiceRoll {
 	// ----------------------------------------------------------------------------------------------------------------
 
 
-	public void setId(int id) {
-		this.id = id;
+	public void setIdRoll(int idroll) {
+		this.idroll = idroll;
 	}
 
-	public void setToss(int toss) {
-		this.toss = toss;
-	}
+	
 
-	public void setGame(int game) {
+	public void setGame(Game game) {
 		this.game = game;
 	}
 
-	public void setPlayer(int player) {
+	public void setPlayer(Player player) {
 		this.player = player;
 	}
 
@@ -146,7 +147,7 @@ public class DiceRoll {
 
 	@Override
 	public String toString() {
-		return "DiceRoll [id=" + id + ", toss=" + toss + ", game=" + game + ", player=" + player + ", dice1=" + dice1
+		return "DiceRoll [idroll=" + idroll + ",  game=" + game + ", player=" + player + ", dice1=" + dice1
 				+ ", dice2=" + dice2 + ", result=" + result + "]";
 	}
 		

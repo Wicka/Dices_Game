@@ -31,13 +31,12 @@ public class DiceRollServiceImp implements IDiceRollService {
 
 	@Override
 	public DiceRoll updateDiceRoll(DiceRoll diceRoll) {
-		// TODO Auto-generated method stub
-		return null;
+		return iDiceRollDao.save(diceRoll);
 	}
 
 	@Override
 	public void deleteDiceRoll(int id) {
-		// TODO Auto-generated method stub
+		iDiceRollDao.deleteById(id);
 
 	}
 

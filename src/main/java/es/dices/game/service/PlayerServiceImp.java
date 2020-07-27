@@ -82,8 +82,7 @@ public class PlayerServiceImp implements IPlayerService {
 		dicerolls = iDiceRollDao.findAll();
 		
 		for (Player player : players) {			
-			iContWin=iContGames=0;		
-			iPoints = player.getPoints();
+			iContWin=iContGames=iPoints = 0;
 			
 			for (Game game : games) {
 				if((game.getPlayer1().getId() ==player.getId()) || (game.getPlayer2().getId() ==player.getId())) {

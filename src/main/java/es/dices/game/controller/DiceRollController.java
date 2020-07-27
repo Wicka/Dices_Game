@@ -36,7 +36,7 @@ public class DiceRollController {
 	}
 	
 	@GetMapping ("/CRUD_rolls/{id}")
-	public DiceRoll diceRollXID(@PathVariable(name="idroll")Integer id) {
+	public DiceRoll diceRollXID(@PathVariable(name="id")Integer id) {
 		return diceRollServiceImp.diceRollXID(id);
 	}
 	
@@ -52,7 +52,7 @@ public class DiceRollController {
 	
 	
 	@PutMapping("/CRUD_rolls/{id}")
-	public DiceRoll updateDiceRoll (@PathVariable(name="idroll")Integer id, @RequestBody DiceRoll diceRoll) {
+	public DiceRoll updateDiceRoll (@PathVariable(name="id")Integer id, @RequestBody DiceRoll diceRoll) {
 		
 		DiceRoll diceRoll_selected = new DiceRoll();
 		
@@ -68,7 +68,7 @@ public class DiceRollController {
 	}
 			
 	@DeleteMapping ("/CRUD_rolls/{id}")
-	public void deleteDiceRoll(@PathVariable(name="idroll")Integer id) {
+	public void deleteDiceRoll(@PathVariable(name="id")Integer id) {
 		
 		diceRollServiceImp.deleteDiceRoll(id);
 	}

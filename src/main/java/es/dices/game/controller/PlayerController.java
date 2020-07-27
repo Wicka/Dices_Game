@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.dices.game.dao.IDiceRollDAO;
 import es.dices.game.dto.Dice;
 import es.dices.game.dto.DiceRoll;
 import es.dices.game.dto.Game;
@@ -29,7 +30,12 @@ public class PlayerController {
 	@Autowired
 	PlayerServiceImp playerServiceImp;
 	Dice dice;
+
+	
+	@Autowired
 	DiceRollServiceImp dicerollService;
+	
+	@Autowired	
 	GameServiceImp gameService;
 	
 	
@@ -98,7 +104,7 @@ public class PlayerController {
 	
 		
 	//GET /players/{id}/games: retorna el llistat de jugades per un jugador.	
-	@GetMapping("/player/{id}/games")	
+	@GetMapping("/players/{id}/games")	
 	public List<Game> playerXID_Games (@PathVariable(name="id")Integer id) {				
 		return playerServiceImp.playerXID_Games(id);		
 	}
@@ -126,14 +132,6 @@ public class PlayerController {
 	@PostMapping("/players/{id}/games")	
 	public String rolldice(@PathVariable(name="id")Integer id){
 		
-		Dice dice1 = new Dice();
-		Dice dice2 = new Dice();
-		
-		DiceRoll roll = new DiceRoll();
-			roll.setDice1(dice1.getToss());
-			roll.setDice2(dice2.getToss());
-			roll.setResult(dice1.getToss()+dice2.getToss());
-			
 		List<Game> games = new ArrayList<Game> ();
 			games=playerXID_Games(id);
 		
@@ -142,23 +140,67 @@ public class PlayerController {
 		
 		Player activeplayer = new Player();
 			activeplayer=playerXID(id);
+
+		Dice dice1 = new Dice();
+		Dice dice2 = new Dice();
+			
+		DiceRoll roll = new DiceRoll();
+			roll.setDice1(dice1.getToss());
+			roll.setDice2(dice2.getToss());
+			roll.setResult(dice1.getToss()+dice2.getToss());
+			roll.setPlayer(id);
+			roll.setGame(lastGame.getId());		
+				
+			dicerollService.saveDiceRoll(roll);
 		
 		
-		dicerollService.saveDiceRoll(roll);
-		
-		
-		if (lastGame.getPlayer1().getId()==activeplayer.getId()) {
+		if (lastGame.getPlayer1().getId()==id) {
 			lastGame.setRoll1(roll);
-		}else {
+			}else {
 			lastGame.setRoll2(roll);
 		}
+				gameService.saveGame(lastGame);		
 				
-		return "Roll Dices : \nDice 1 : " + dice1.getToss() + " \nDice 2 : " + dice2.getToss();		
+		return "Roll Dices :  Game : " + lastGame.getId() + " Player : " +activeplayer.getId()+ " Name : "+ activeplayer.getName() +"\nDice 1 : " + dice1.getToss() + " \nDice 2 : " + dice2.getToss() ;		
 	}
 	
 	
 	
 	// DELETE /players/{id}/games: elimina les tirades del jugador.
+	@DeleteMapping("/players/{id}/games")	
+	public String deleteRollsXIDPlayer(@PathVariable(name="id")Integer id){
+		
+		List<Game> games = new ArrayList<Game> ();
+			games=playerXID_Games(id);
+	
+			for(Game game : games) {
+				if(game.getPlayer1().getId()==id) {
+					game.setRoll1(null);
+				}else {
+					game.setRoll2(null);					
+				}
+			}
+			
+		List<DiceRoll> rolls = new ArrayList<>();		
+			rolls=dicerollService.showDiceRoll();
+		
+			for(DiceRoll roll : rolls) {
+				if(roll.getPlayer() == id) {
+					dicerollService.deleteDiceRoll(roll.getIdRoll());
+				}
+				
+			}
+			
+			
+		Player player_selected = new Player();		
+			player_selected=playerXID(id);
 
+		
+		
+
+		return "All Roll dices to player : " + player_selected.getName() + " has been removed";
+	}
+	
+	
 
 }

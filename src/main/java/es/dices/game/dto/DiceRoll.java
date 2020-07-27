@@ -47,6 +47,10 @@ public class DiceRoll {
 	@JoinColumn(name = "idgame")
 	private List<Game> games;
 	
+	@JsonIgnore
+	@OneToMany
+	@JoinColumn(name = "idplayer")
+	private List<Player> players;
 	
 	
 	@Column(name="dice1")
@@ -57,6 +61,13 @@ public class DiceRoll {
 	
 	@Column(name="result") 
 	private int result;
+	
+	@Column(name="idgame")
+	private int game;
+	
+	@Column(name="idplayer")
+	private int player;
+	
 
 	
 	
@@ -80,12 +91,14 @@ public class DiceRoll {
 		
 	}
 	
-	public DiceRoll(int idRoll, int toss, int dice1, int dice2, int result) {
+	public DiceRoll(int idRoll, int toss, int dice1, int dice2, int result,int game, int player) {
 		super();
 		this.idRoll = idRoll;
 		this.dice1 = dice1;
 		this.dice2 = dice2;
 		this.result = result;
+		this.game=game;
+		this.player=player;
 	
 	}
 
@@ -96,6 +109,30 @@ public class DiceRoll {
 	// ----------------------------------------------------------------------------------------------------------------
 
 	
+	public List<Player> getPlayers() {
+		return players;
+	}
+
+	public void setPlayers(List<Player> players) {
+		this.players = players;
+	}
+
+	public int getGame() {
+		return game;
+	}
+
+	public void setGame(int game) {
+		this.game = game;
+	}
+
+	public int getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(int player) {
+		this.player = player;
+	}
+
 	public int getIdRoll() {
 		return idRoll;
 	}
@@ -153,12 +190,6 @@ public class DiceRoll {
 	// ------------------------------------------ TO STRING ----------------------------------------------------------
 	
 
-
-	@Override
-	public String toString() {
-		return "DiceRoll [idRoll=" + idRoll + ", games=" + games + ", dice1=" + dice1 + ", dice2=" + dice2 + ", result="
-				+ result +  "]";
-	}
 
 
 		

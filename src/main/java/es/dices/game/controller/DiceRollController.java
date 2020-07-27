@@ -25,55 +25,33 @@ public class DiceRollController {
 	@Autowired
 	DiceRollServiceImp diceRollServiceImp;
 	
-	//--------------------------------------------------------------------------------------------------------------------------
-	//--------------------------------------------------------------------------------------------------------------------------
-	//----------------------------------------------  CALL TO METHODS
-	//--------------------------------------------------------------------------------------------------------------------------
-	//--------------------------------------------------------------------------------------------------------------------------
-
-		
-		
-		//---------------------------------------------------------------------
-		//----------------------------------------------  GET METHODS (VIEWS)
-		//---------------------------------------------------------------------	
+	//---------------------------------------------------------------------
+	//----------------------------------------------  CRUD
+	//---------------------------------------------------------------------
 	
-	@GetMapping("/rolls/menu")
-	public String menu() {
-		return MenuOptions.DiceRoll();
-	}
 	
-	@GetMapping("/rolls")
+	@GetMapping("/CRUD_rolls")
 	public List<DiceRoll> showDiceRoll(){		
 		return diceRollServiceImp.showDiceRoll();	
 	}
 	
-	@GetMapping ("/rolls/{id}")
+	@GetMapping ("/CRUD_rolls/{id}")
 	public DiceRoll diceRollXID(@PathVariable(name="idroll")Integer id) {
 		return diceRollServiceImp.diceRollXID(id);
 	}
 	
-			
-		//----------------------------------------------------------------------
-		//--------------------------------------------  POST METHOD  (NEW ROLL)
-		//----------------------------------------------------------------------
-
-	@GetMapping("/rolldice")
-	public int rollDice() {
-		Dice dice = new Dice();
-		return dice.getToss();
-	}
-	
-	@PostMapping("/rolls")
+	//GET Realizo la tirada dados en la partida
+	@PostMapping("/CRUD_rolls")
 	public DiceRoll saveDiceRoll(@RequestBody DiceRoll diceRoll) {
+		Dice dice1 = new Dice();
+		Dice dice2 = new Dice();
+		diceRoll.setDice1(dice1.getToss());
+		diceRoll.setDice2(dice2.getToss());		
 		return diceRollServiceImp.saveDiceRoll(diceRoll);	
 	}
 	
-
-	//----------------------------------------------------------------------
-	//--------------------------------------------  PUT METHOD  (NEW ROLL)
-	//----------------------------------------------------------------------
-
-	@PutMapping("/rolls/{id}")
+	
+	@PutMapping("/CRUD_rolls/{id}")
 	public DiceRoll updateDiceRoll (@PathVariable(name="idroll")Integer id, @RequestBody DiceRoll diceRoll) {
 		
 		DiceRoll diceRoll_selected = new DiceRoll();
@@ -88,16 +66,26 @@ public class DiceRollController {
 			
 		return diceRoll_updated;
 	}
-	
-	//-------------------------------------------------------------------
-	//------------------------------------  DELETE METHOD   (DELETE ROLL)
-	//----------------------CASCADE IN BBDD ------------------------------
-	//--------------------------------------------------------------------
-
-	@DeleteMapping ("/rolls/{id}")
+			
+	@DeleteMapping ("/CRUD_rolls/{id}")
 	public void deleteDiceRoll(@PathVariable(name="idroll")Integer id) {
 		
 		diceRollServiceImp.deleteDiceRoll(id);
 	}
+	
+	
+	
+	
+	//GET Realizo una tirada de dados
+	@GetMapping("/rolldices")
+	public String rollDice() {
+		Dice dice1 = new Dice();
+		Dice dice2 = new Dice();
+		return "Roll Dices : \nDice 1 : " + dice1.getToss() + " \nDice 2 : " + dice2.getToss();		
+	}
+	
+
+
+	
 	
 }

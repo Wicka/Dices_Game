@@ -1,6 +1,8 @@
 package es.dices.game.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +58,6 @@ public class PlayerServiceImp implements IPlayerService {
 		List<Game> allPlayersGames = new ArrayList<Game>();
 		
 		allPlayersGames=iGameDao.findAll();
-		//allPlayersGames=gameServiceImp.showGame();
 		
 		for(Game game : allPlayersGames)
 			if((game.getPlayer1().getId() ==id) || (game.getPlayer2().getId() ==id)) {
@@ -65,9 +66,9 @@ public class PlayerServiceImp implements IPlayerService {
 		return games;
 	}
 
-	public List<Player> showPlayers_Exits() {
+	// METODO EN EL QUE ACTUALIZO LOS JUGADORES CON TODOS LOS JUEGOS ACABADOS Y SUS TIRADAS DE DADOS
+	public List<Player> Players_Classifications() {
 		
-	//	List<Game> wingames=new ArrayList<Game>();
 		List<Game> games = new ArrayList<Game>();
 		List<Player> players= new ArrayList<Player>();
 		List<DiceRoll> dicerolls = new ArrayList<DiceRoll>();
@@ -110,10 +111,42 @@ public class PlayerServiceImp implements IPlayerService {
 				player.setRate(iContGames/iContWin);
 				player.setRanking(iContGames/iContWin);
 			}
+			savePlayer(player);
 		}
 	
-		
+	
 		return players;
+	}
+
+	public List<Player> showPlayers_Exits() {
+		List<Player> players_exits= new ArrayList<Player>();
+		players_exits=Players_Classifications() ;		
+		Collections.sort(players_exits, Comparator.comparing(Player::getPoints).reversed());		
+		return players_exits;
+	}
+
+	public List<Player> showPlayers_Ranking() {
+		List<Player> players_rankings= new ArrayList<Player>();
+		players_rankings=Players_Classifications() ;
+		Collections.sort(players_rankings, Comparator.comparing(Player::getRanking).reversed());	
+		return players_rankings;
+	}
+
+	public Player showWinner() {
+		List<Player> players_rankings= new ArrayList<Player>();
+
+		players_rankings=showPlayers_Ranking() ;		
+		return players_rankings.get(0);
+	}
+
+	public Player showLoser () {
+		int iPos=-1;
+		
+		List<Player> players_rankings= new ArrayList<Player>();
+		players_rankings=showPlayers_Ranking() ;		
+		iPos = players_rankings.size()-1;
+		
+		return players_rankings.get(iPos);
 	}
 
 }

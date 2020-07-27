@@ -23,49 +23,27 @@ public class GameController {
 	@Autowired
 	GameServiceImp gameServiceImp;
 	
-	//--------------------------------------------------------------------------------------------------------------------------
-	//--------------------------------------------------------------------------------------------------------------------------
-	//----------------------------------------------  CALL TO METHODS
-	//--------------------------------------------------------------------------------------------------------------------------
-	//--------------------------------------------------------------------------------------------------------------------------
-
-		
-		
 		//---------------------------------------------------------------------
-		//----------------------------------------------  GET METHODS (VIEWS)
-		//---------------------------------------------------------------------	
-	
-	@GetMapping("/games/menu")
-	public String menu() {
-		return MenuOptions.Games();
-	}
-	
-	@GetMapping("/games")
-	public List<Game> showGames(){
+		//----------------------------------------------  CRUD
+		//---------------------------------------------------------------------
 		
+	
+	@GetMapping("/CRUD_games")
+	public List<Game> showGames(){		
 		return gameServiceImp.showGame();	
 	}
 	
-	@GetMapping("/games/{id}")
+	@GetMapping("/CRUD_games/{id}")
 	public Game gameXID (@PathVariable (name="id")Integer id) {
 		return gameServiceImp.gametXID(id);
 	}
 	
-		//----------------------------------------------------------------------
-		//--------------------------------------------  POST METHOD  (NEW GAME)
-		//----------------------------------------------------------------------
-
-	@PostMapping("/games")
-	public Game saveGame(@RequestBody Game game) {
+	@PostMapping("/CRUD_games")
+	public Game saveGame(@RequestBody Game game) {		
 		return gameServiceImp.saveGame(game);
 	}
 	
-	
-		//----------------------------------------------------------------------
-		//--------------------------------------------  PUT METHOD  (NEW GAME)
-		//----------------------------------------------------------------------
-
-	@PutMapping("/games/{id}")
+	@PutMapping("/CRUD_games/{id}")
 	public Game updateGame(@PathVariable(name="id")Integer id, @RequestBody Game game) {
 		
 		Game activeGame = new Game();
@@ -73,6 +51,8 @@ public class GameController {
 			activeGame.setWinner(game.getWinner());			
 			activeGame.setPlayer1(game.getPlayer1());
 			activeGame.setPlayer2(game.getPlayer2());
+			activeGame.setRoll1(game.getRoll_1());
+			activeGame.setRoll2(game.getRoll_2());
 			
 		Game endGame = new Game();
 		
@@ -81,17 +61,10 @@ public class GameController {
 		return gameServiceImp.updateGame(endGame);
 	}
 	
-	//-------------------------------------------------------------------
-	//------------------------------------  DELETE METHOD   (DELETE PLAYER)
-	//----------------------CASCADE IN BBDD ------------------------------
-	//--------------------------------------------------------------------
-
-	@DeleteMapping ("/games/{id}")
-	public void deleteGame(@PathVariable(name="id")Integer id) {
-		
+	@DeleteMapping ("/CRUD_games/{id}")
+	public void deleteGame(@PathVariable(name="id")Integer id) {		
 		gameServiceImp.deleteGame(id);
 		
 	}
-	
 	
 }

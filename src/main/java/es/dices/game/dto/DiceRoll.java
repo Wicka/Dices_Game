@@ -42,8 +42,9 @@ public class DiceRoll {
 	@Column(name="idroll")
 	private int idRoll;
 	
+	@JsonIgnore
 	@OneToMany
-	@JoinColumn(name = "id")
+	@JoinColumn(name = "idgame")
 	private List<Game> games;
 	
 	

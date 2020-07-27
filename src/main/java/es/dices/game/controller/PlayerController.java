@@ -76,8 +76,22 @@ public class PlayerController {
 	}
 	
 	@DeleteMapping ("/CRUD_players/{id}")
-	public void deletePlayer(@PathVariable (name="id")Integer id) {
-		playerServiceImp.deletePlayer(id);
+	public String deletePlayer(@PathVariable (name="id")Integer id) {
+		
+		String msj="";
+		
+		List<Game> games = new ArrayList<>();
+		games =playerServiceImp.playerXID_Games(id);		
+		
+		if (games.size()==0){
+			playerServiceImp.deletePlayer(id);			
+		}else {
+			msj="You can't delete Player id : " + id + " because there are games bellow that player";
+		}
+					
+		msj="Player with id : " + id + " has been deleted";
+	
+		return msj;
 	}
 	
 	

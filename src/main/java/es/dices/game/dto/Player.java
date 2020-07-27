@@ -47,7 +47,7 @@ public class Player {
 
 	@JsonIgnore
 	@OneToMany
-	@JoinColumn(name="idplayer")
+	@JoinColumn(name="idgame")
 	private List<Game> games;
 	
 	
@@ -109,7 +109,7 @@ public class Player {
 		return points;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "idplayer")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "idgame")
 	public List<Game> getGames() {
 		return games;
 	}
@@ -171,14 +171,20 @@ public class Player {
 	public void setRate(int rate) {
 		this.rate = rate;
 	}
-	
-	// ------------------------------------------ TO STRING ----------------------------------------------------------
 
 	@Override
 	public String toString() {
-		return "Player [Player=" + id + ", name=" + name + ", date=" + date + ", points=" + points + ", ranking=" + ranking
-				+ ", igames=" + igames + ", iwingames=" + iwingames + ", games=" + games+ ", rate=" + rate + "]";
+		return "Player [id=" + id + ", name=" + name + ", date=" + date + ", points=" + points + ", ranking=" + ranking
+				+ ", igames=" + igames + ", iwingames=" + iwingames + ", rate=" + rate + "]";
 	}
+	
+	// ------------------------------------------ TO STRING ----------------------------------------------------------
+
+//	@Override
+//	public String toString() {
+//		return "Player [Player=" + id + ", name=" + name + ", date=" + date + ", points=" + points + ", ranking=" + ranking
+//				+ ", igames=" + igames + ", iwingames=" + iwingames + ", games=" + games+ ", rate=" + rate + "]";
+//	}
 
 	
 

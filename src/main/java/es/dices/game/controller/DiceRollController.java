@@ -68,9 +68,10 @@ public class DiceRollController {
 	}
 			
 	@DeleteMapping ("/CRUD_rolls/{id}")
-	public void deleteDiceRoll(@PathVariable(name="id")Integer id) {
+	public String deleteDiceRoll(@PathVariable(name="id")Integer id) {
 		
 		diceRollServiceImp.deleteDiceRoll(id);
+		return "Roll dice number : "+ id + " has been deleted";
 	}
 	
 	

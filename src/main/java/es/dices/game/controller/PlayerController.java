@@ -187,6 +187,10 @@ public class PlayerController {
 		List<Game> games = new ArrayList<Game> ();
 			games=playerXID_Games(id);
 	
+			
+		Player player_selected = new Player();		
+			player_selected=playerXID(id);
+
 			for(Game game : games) {
 				if(game.getPlayer1().getId()==id) {
 					game.setRoll1(null);
@@ -199,16 +203,13 @@ public class PlayerController {
 			rolls=dicerollService.showDiceRoll();
 		
 			for(DiceRoll roll : rolls) {
-				if(roll.getPlayer() == id) {
+				if(roll.getPlayer()==id) {
 					dicerollService.deleteDiceRoll(roll.getIdRoll());
 				}
 				
 			}
 			
-			
-		Player player_selected = new Player();		
-			player_selected=playerXID(id);
-
+	
 		
 		
 

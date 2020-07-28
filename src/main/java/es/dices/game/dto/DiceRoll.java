@@ -63,6 +63,8 @@ public class DiceRoll {
 	@Column(name="result") 
 	private int result;
 	
+	private int player;
+	private int game;
 	
 	
 
@@ -88,12 +90,14 @@ public class DiceRoll {
 		
 	}
 	
-	public DiceRoll(int idRoll, int toss, int dice1, int dice2, int result) {
+	public DiceRoll(int idRoll, int toss, int dice1, int dice2, int result, int player, int game) {
 		super();
 		this.idRoll = idRoll;
 		this.dice1 = dice1;
 		this.dice2 = dice2;
 		this.result = result;
+		this.game=game;
+		this.player=player;
 	
 	
 	}
@@ -105,6 +109,22 @@ public class DiceRoll {
 	// ----------------------------------------------------------------------------------------------------------------
 
 	
+	public int getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(int player) {
+		this.player = player;
+	}
+
+	public int getGame() {
+		return game;
+	}
+
+	public void setGame(int game) {
+		this.game = game;
+	}
+
 	public List<Player> getPlayers() {
 		return players;
 	}
@@ -171,9 +191,10 @@ public class DiceRoll {
 	@Override
 	public String toString() {
 		return "DiceRoll [idRoll=" + idRoll + ", games=" + games + ", players=" + players + ", dice1=" + dice1
-				+ ", dice2=" + dice2 + ", result=" + result + "]";
+				+ ", dice2=" + dice2 + ", result=" + result + ", player=" + player + ", game=" + game + "]";
 	}
 
+	
 	
 	// ------------------------------------------ TO STRING ----------------------------------------------------------
 	

@@ -15,6 +15,7 @@ import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -54,7 +55,7 @@ public class DiceRoll {
 	
 	
 	@Column(name="dice1")
-	private int dice1;
+	private int dice1; 
 	
 	@Column(name="dice2")
 	private int dice2;
@@ -62,11 +63,7 @@ public class DiceRoll {
 	@Column(name="result") 
 	private int result;
 	
-	@Column(name="idgame")
-	private int game;
 	
-	@Column(name="idplayer")
-	private int player;
 	
 
 	
@@ -91,14 +88,13 @@ public class DiceRoll {
 		
 	}
 	
-	public DiceRoll(int idRoll, int toss, int dice1, int dice2, int result,int game, int player) {
+	public DiceRoll(int idRoll, int toss, int dice1, int dice2, int result) {
 		super();
 		this.idRoll = idRoll;
 		this.dice1 = dice1;
 		this.dice2 = dice2;
 		this.result = result;
-		this.game=game;
-		this.player=player;
+	
 	
 	}
 
@@ -117,21 +113,7 @@ public class DiceRoll {
 		this.players = players;
 	}
 
-	public int getGame() {
-		return game;
-	}
-
-	public void setGame(int game) {
-		this.game = game;
-	}
-
-	public int getPlayer() {
-		return player;
-	}
-
-	public void setPlayer(int player) {
-		this.player = player;
-	}
+	
 
 	public int getIdRoll() {
 		return idRoll;
@@ -184,6 +166,12 @@ public class DiceRoll {
 	
 	public void setGames(List<Game> games) {
 		this.games = games;
+	}
+
+	@Override
+	public String toString() {
+		return "DiceRoll [idRoll=" + idRoll + ", games=" + games + ", players=" + players + ", dice1=" + dice1
+				+ ", dice2=" + dice2 + ", result=" + result + "]";
 	}
 
 	
